@@ -1,0 +1,4 @@
+﻿  main.c
+e:\c++sourcefile\db_engine\db_engine\stddef.h(12): warning C4005: “NULL”: 宏重定义
+  e:\visual studio 2015\vc\include\vcruntime.h(226): note: 参见“NULL”的前一个定义
+  db_engine.vcxproj -> E:\C++sourcefile\db_engine\Debug\db_engine.exe
