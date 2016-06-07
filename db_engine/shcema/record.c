@@ -9,6 +9,7 @@ void get_reocrd(byte* record, int* length, struct table* t, byte** data)
 	for (int i = 0; i < t->size; i++) {
 		struct column* c = &(t->columns[i]);
 		struct data* type = &(c->type);
+		/* c_not_null->data[i] != NULL*/
 		assert((!c->not_null)||(data[i] != NULL));
 		if (data[i] != NULL) {
 			if (type->is_variable) {

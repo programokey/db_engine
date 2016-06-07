@@ -17,12 +17,6 @@ struct b_plus_node
 one page per leaf node*/
 int get_balance_factor(struct table* t);
 
-/*one page may contain many internal node*/
-int internal_node_per_page(struct table* t, struct column** c, int n_column);
+int get_internal_node_size(struct table* t);
 
-/*node for inerenal node or b+ tree of non clustered index*/
-struct b_plus_node* get_new_internal_node(int n);
-
-/**/
-struct b_plus_node* get_new_leaf_node();
 #endif // !BPTREE_B_PLUS_TREE_H

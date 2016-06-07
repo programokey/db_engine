@@ -1,0 +1,66 @@
+﻿  memory.c
+e:\c++sourcefile\db_engine\db_engine\stddef.h(12): warning C4005: “NULL”: 宏重定义
+  e:\visual studio 2015\vc\include\vcruntime.h(226): note: 参见“NULL”的前一个定义
+e:\c++sourcefile\db_engine\db_engine\storage\memory.c(41): warning C4311: “类型转换”: 从“void *”到“uint32_t”的指针截断
+e:\c++sourcefile\db_engine\db_engine\storage\memory.c(42): warning C4311: “类型转换”: 从“void *”到“uint32_t”的指针截断
+e:\c++sourcefile\db_engine\db_engine\storage\memory.c(42): warning C4312: “类型转换”: 从“uint32_t”转换到更大的“void *”
+  disk.c
+e:\c++sourcefile\db_engine\db_engine\stddef.h(12): warning C4005: “NULL”: 宏重定义
+  e:\visual studio 2015\vc\include\vcruntime.h(226): note: 参见“NULL”的前一个定义
+e:\c++sourcefile\db_engine\db_engine\storage\disk.c(64): warning C4312: “类型转换”: 从“uint32_t”转换到更大的“void *”
+e:\c++sourcefile\db_engine\db_engine\storage\disk.c(65): warning C4312: “类型转换”: 从“uint32_t”转换到更大的“void *”
+e:\c++sourcefile\db_engine\db_engine\storage\disk.c(69): warning C4311: “类型转换”: 从“void *”到“uint32_t”的指针截断
+e:\c++sourcefile\db_engine\db_engine\storage\disk.c(81): warning C4312: “类型转换”: 从“uint32_t”转换到更大的“void *”
+e:\c++sourcefile\db_engine\db_engine\storage\disk.c(82): warning C4312: “类型转换”: 从“uint32_t”转换到更大的“void *”
+e:\c++sourcefile\db_engine\db_engine\storage\disk.c(109): warning C4312: “类型转换”: 从“uint32_t”转换到更大的“void *”
+e:\c++sourcefile\db_engine\db_engine\storage\disk.c(123): warning C4311: “类型转换”: 从“void *”到“uint32_t”的指针截断
+e:\c++sourcefile\db_engine\db_engine\storage\disk.c(124): warning C4311: “类型转换”: 从“void *”到“uint32_t”的指针截断
+e:\c++sourcefile\db_engine\db_engine\storage\disk.c(124): warning C4047: “=”:“void *”与“uint32_t”的间接级别不同
+e:\c++sourcefile\db_engine\db_engine\storage\disk.c(128): warning C4047: “==”:“uint32_t”与“void *”的间接级别不同
+e:\c++sourcefile\db_engine\db_engine\storage\disk.c(131): warning C4047: “>”:“void *”与“uint32_t”的间接级别不同
+e:\c++sourcefile\db_engine\db_engine\storage\disk.c(143): warning C4311: “类型转换”: 从“void *”到“uint32_t”的指针截断
+e:\c++sourcefile\db_engine\db_engine\storage\disk.c(143): warning C4312: “类型转换”: 从“uint32_t”转换到更大的“void *”
+e:\c++sourcefile\db_engine\db_engine\storage\disk.c(143): warning C4047: “=”:“uint32_t”与“void *”的间接级别不同
+e:\c++sourcefile\db_engine\db_engine\storage\disk.c(149): warning C4022: “flush”: 指针与实参 1 不匹配
+  stddef.c
+e:\c++sourcefile\db_engine\db_engine\stddef.h(12): warning C4005: “NULL”: 宏重定义
+  e:\visual studio 2015\vc\include\vcruntime.h(226): note: 参见“NULL”的前一个定义
+  table.c
+e:\c++sourcefile\db_engine\db_engine\stddef.h(12): warning C4005: “NULL”: 宏重定义
+  e:\visual studio 2015\vc\include\vcruntime.h(226): note: 参见“NULL”的前一个定义
+e:\c++sourcefile\db_engine\db_engine\shcema\table.c(9): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\string.h(119): note: 参见“strcpy”的声明
+  schema.c
+e:\c++sourcefile\db_engine\db_engine\stddef.h(12): warning C4005: “NULL”: 宏重定义
+  e:\visual studio 2015\vc\include\vcruntime.h(226): note: 参见“NULL”的前一个定义
+e:\c++sourcefile\db_engine\db_engine\shcema\schema.c(14): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\string.h(119): note: 参见“strcpy”的声明
+  record.c
+e:\c++sourcefile\db_engine\db_engine\stddef.h(12): warning C4005: “NULL”: 宏重定义
+  e:\visual studio 2015\vc\include\vcruntime.h(226): note: 参见“NULL”的前一个定义
+  database.c
+e:\c++sourcefile\db_engine\db_engine\stddef.h(12): warning C4005: “NULL”: 宏重定义
+  e:\visual studio 2015\vc\include\vcruntime.h(226): note: 参见“NULL”的前一个定义
+e:\c++sourcefile\db_engine\db_engine\shcema\database.c(7): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\stdio.h(205): note: 参见“fopen”的声明
+e:\c++sourcefile\db_engine\db_engine\shcema\database.c(22): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\stdio.h(205): note: 参见“fopen”的声明
+  column.c
+e:\c++sourcefile\db_engine\db_engine\stddef.h(12): warning C4005: “NULL”: 宏重定义
+  e:\visual studio 2015\vc\include\vcruntime.h(226): note: 参见“NULL”的前一个定义
+e:\c++sourcefile\db_engine\db_engine\shcema\column.c(15): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\string.h(119): note: 参见“strcpy”的声明
+  main.c
+e:\c++sourcefile\db_engine\db_engine\stddef.h(12): warning C4005: “NULL”: 宏重定义
+  e:\visual studio 2015\vc\include\vcruntime.h(226): note: 参见“NULL”的前一个定义
+e:\c++sourcefile\db_engine\db_engine\main.c(7): warning C4477: “printf”: 格式字符串“%d”需要类型“int”的参数，但可变参数 1 拥有了类型“size_t”
+  e:\c++sourcefile\db_engine\db_engine\main.c(7): note: 请考虑在格式字符串中使用“%zd”
+  data.c
+e:\c++sourcefile\db_engine\db_engine\stddef.h(12): warning C4005: “NULL”: 宏重定义
+  e:\visual studio 2015\vc\include\vcruntime.h(226): note: 参见“NULL”的前一个定义
+  b_plus_tree.c
+e:\c++sourcefile\db_engine\db_engine\stddef.h(12): warning C4005: “NULL”: 宏重定义
+  e:\visual studio 2015\vc\include\vcruntime.h(226): note: 参见“NULL”的前一个定义
+e:\c++sourcefile\db_engine\db_engine\bptree\b_plus_tree.c(11): warning C4018: “<”: 有符号/无符号不匹配
+  正在生成代码...
+  db_engine.vcxproj -> E:\C++sourcefile\db_engine\x64\Debug\db_engine.exe

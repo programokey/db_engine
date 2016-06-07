@@ -2,11 +2,28 @@
 #define STORAGE_DISK_H
 #include "../stddef.h"
 #define NODE_SIZE 256
-#define BYTE_PER_NODE (NODE_SIZE - 2*sizeof(uint16_t))
-#define NODE_PER_NODE (NODE_SIZE/sizeof(uint64_t) - 1)
+#define BYTE_PER_NODE (NODE_SIZE - 2 * sizeof(uint32_t))
+#define NODE_PER_NODE (NODE_SIZE/sizeof(uint32_t) - 2)
+#define MAP_SIZE      (PAGE_SIZE / NODE_SIZE / 8)
+#define INTERNAL_NODE 1
+#define LEAF_NODE 2
+#define DATA_NODE 3
+#define SCHEMA_INFO 4
+
+
+/*information of a block*/
+struct block_info
+{
+	/*1 for internal node,2 for leaf node,3 for data, 4 for schema info*/
+	uint32_t type;
+	uint16_t areas;
+	byte bitmap[MAP_SIZE];
+};
+
 /*return a memory space corresponding to a disk spcace 
 and set the disk space dirty*/
-uint32_t get_disk_node();
+uint32_t get_data_node();
+uint32_t get_internal_node(struct table*t);
 uint32_t get_block();
 /*set the page contains the pointer p to be dirty*/
 void stain(void* p);
@@ -15,6 +32,4 @@ uint32_t memory_to_disk(void* memory_pos);
 /*swap a block in disk into a page in memory*/
 void* swap_in(uint32_t location);
 void clean();
-/*flush drity block in memory to disk*/
-void flush(void*);
 #endif // !STORAGE_DISK_H

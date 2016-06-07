@@ -2,6 +2,8 @@
 #define STROAGE_MEMORY_H
 #define MEMORY_POOL_SIZE 0x20000000//512MB
 #include "../stddef.h"
+
+
 void* memory_pool;
 void* memroy_allocate(int size);
 void  release_memory(void* buffer);
