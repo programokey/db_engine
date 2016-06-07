@@ -10,15 +10,6 @@ void* begin_of_memory_pool;
 byte bit_map[PAGE_NUMBER/8];
 int last_pos = 0;
 
-void* memroy_allocate(int size)
-{
-	return malloc(size);
-}
-
-void  release_memory(void* buffer)
-{
-	free(buffer);
-}
 
 void* get_page()
 {
@@ -57,4 +48,20 @@ void memory_copy(byte* dest, byte* source, int length)
 		d[i] = s[i];
 	for (int i = 0; i < length%sizeof(word); i++)
 		dest[word_num*sizeof(word) + i] = source[word_num*sizeof(word) + i];
+}
+
+int memory_compare(byte * buffer1, byte * buffer2, int length)
+{
+	word* b1 = (word*)buffer1;
+	word* b2 = (word*)buffer2;
+	int word_num = length / sizeof(word);
+	for (int i = 0; i < word_num; i++) {
+		if (b1[i] != b2[i])
+			return b1[i] - b2[i];
+	}
+	for (int i = 0; i < length%sizeof(word); i++) {
+		if (buffer1[word_num*sizeof(word) + i] != buffer2[word_num*sizeof(word) + i])
+			return buffer1[word_num*sizeof(word) + i] - buffer2[word_num*sizeof(word) + i];
+	}
+	return 0;
 }

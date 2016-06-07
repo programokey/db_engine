@@ -21,6 +21,7 @@ int get_balance_factor(struct table* t)
 		else
 			data_size += t->columns[i].type.length;
 	}
+	data_size += t->size / 8 + (t->size & 0x7) == 0 ? 0 : 1;
 	return (PAGE_SIZE - sizeof(struct b_plus_node) - sizeof(uint32_t)) / (data_size + sizeof(uint32_t) + key_size);
 }
 int internal_node_per_page(struct table* t, struct column** c, int n_column)
@@ -35,15 +36,93 @@ int internal_node_per_page(struct table* t, struct column** c, int n_column)
 	int b = get_balance_factor(t);
 	return (PAGE_SIZE) / (sizeof(struct b_plus_node) + b*key_size + (b + 1)*sizeof(uint32_t));
 }
-/*node for inerenal node or b+ tree of non clustered index*/
-struct b_plus_node* get_new_internal_node(int n)
+
+int pk_internal_node_per_page(struct table* t)
 {
-	return  (struct b_plus_node*)malloc(PAGE_SIZE / n);
+	int key_size = 0;
+	for (int i = 0; i < t->pk.size; i++) {
+		if (t->columns[i].type.is_variable)
+			key_size += sizeof(uint32_t);
+		else
+			key_size += t->columns[i].type.length;
+	}
+	int b = get_balance_factor(t);
+	return (PAGE_SIZE) / (sizeof(struct b_plus_node) + b*key_size + (b + 1)*sizeof(uint32_t));
 }
-struct b_plus_node* get_new_leaf_node()
+
+int get_internal_node_size(struct table* t, struct column** c, int n_column)
 {
-	uint32_t location = get_block();
-	void* p = swap_in(location);
-	stain(p);
-	return (struct b_plus_node*)p;
+	int key_size = 0;
+	for (int i = 0; i < n_column; i++) {
+		if (c[i]->type.is_variable)
+			key_size += sizeof(uint32_t);
+		else
+			key_size += c[i]->type.length;
+	}
+	int b = get_balance_factor(t);
+	return (sizeof(struct b_plus_node) + b*key_size + (b + 1)*sizeof(uint32_t));
+}
+int get_pk_internal_node_size(struct table* t)
+{
+	int key_size = 0;
+	for (int i = 0; i < t->pk.size; i++) {
+		if (t->columns[i].type.is_variable)
+			key_size += sizeof(uint32_t);
+		else
+			key_size += t->columns[i].type.length;
+	}
+	int b = get_balance_factor(t);
+	return (sizeof(struct b_plus_node) + b*key_size + (b + 1)*sizeof(uint32_t));
+}
+
+
+byte* get_key(struct b_plus_node* p, int i)
+{
+	byte* q = disk_to_memory(p->key);
+	return q + p->key_size*i;
+}
+struct b_plus_node* get_child(struct b_plus_node* p, int i)
+{
+	return disk_to_memory(*(uint32_t*)((byte*)disk_to_memory(p->child) + sizeof(word) * i));
+}
+struct b_plus_node* get_parent(struct b_plus_node* p)
+{
+	return disk_to_memory(p->parent);
+}
+struct table* get_table(struct b_plus_node* p)
+{
+	return disk_to_memory(p->t);
+}
+
+void set_key(struct b_plus_node* p, int i, byte* key)
+{
+	byte* q = (byte*)disk_to_memory(p->key) + p->key_size*i;
+	memory_copy(q, key, p->key_size);
+}
+void set_parent(struct b_plus_node* p, struct b_plus_node* parent)
+{
+	p->parent = memory_to_disk(parent);
+}
+void set_child(struct b_plus_node* p, int i, struct b_plus_node* child)
+{
+	struct b_plus_node** q = (byte*)disk_to_memory(p->child) + sizeof(word) * i;
+	*q = memory_to_disk(child);
+}
+void set_table(struct b_plus_node* p, struct table* t)
+{
+	p->t = memory_to_disk(t);
+}
+
+
+
+int get_key_size(struct table* t, struct column** c, int n_column)
+{
+	int key_size = 0;
+	for (int i = 0; i < n_column; i++) {
+		if (c[i]->type.is_variable)
+			key_size += sizeof(uint32_t);
+		else
+			key_size += c[i]->type.length;
+	}
+	return key_size;
 }

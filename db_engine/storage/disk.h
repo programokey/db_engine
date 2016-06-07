@@ -20,16 +20,19 @@ struct block_info
 	byte bitmap[MAP_SIZE];
 };
 
-/*return a memory space corresponding to a disk spcace 
-and set the disk space dirty*/
 uint32_t get_data_node();
 uint32_t get_internal_node(struct table*t);
+/*return a memory space corresponding to a disk spcace
+and set the disk space dirty*/
 uint32_t get_block();
-/*set the page contains the pointer p to be dirty*/
-void stain(void* p);
+
 void* disk_to_memory(uint32_t disk_pos);
 uint32_t memory_to_disk(void* memory_pos);
+
 /*swap a block in disk into a page in memory*/
 void* swap_in(uint32_t location);
+
+/*set the page contains the pointer p to be dirty*/
+void stain(void* p);
 void clean();
 #endif // !STORAGE_DISK_H

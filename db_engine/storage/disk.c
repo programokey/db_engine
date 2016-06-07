@@ -114,7 +114,7 @@ uint32_t get_data_node()
 	bi->type = DATA_NODE;
 	return NODE_SIZE + data_page;
 }
-uint32_t get_internal_node(struct table*t)
+uint32_t get_internal_node(struct table* t, struct column** c, int n_column)
 {
 	int index = -1;
 	for (int i = 0; i < MAX_TABLES; i++) {
@@ -123,7 +123,37 @@ uint32_t get_internal_node(struct table*t)
 	}
 	assert(index != -1);
 	struct block_info* bi = disk_to_memory(leaf_node[index]);
-	int internal_node_size = get_internal_node_size(t);
+	int internal_node_size = get_internal_node_size(t,c,n_column);
+	for (int i = 0; i < bi->areas; i++) {
+		if (bi->bitmap[i] != 0xff) {
+			for (int j = 0; i < 8; j++) {
+				if (!get_bit(bi->bitmap[i], j)) {
+					set_bit(bi->bitmap[i], j, true);
+					return (i * 8 + j)*internal_node_size + data_page;
+				}
+			}
+		}
+	}
+	leaf_node[index] = get_block();
+	bi = disk_to_memory(leaf_node[index]);
+	bi->areas = PAGE_SIZE / internal_node_size;
+	for (int i = 0; i < bi->areas; i++)
+		bi->bitmap[i] = '\0';
+	bi->type = INTERNAL_NODE;
+	set_bit(bi->bitmap[0], 1, true);
+	set_bit(bi->bitmap[0], 2, true);
+	return internal_node_size + data_page;
+}
+uint32_t get_pk_internal_node(struct table*t)
+{
+	int index = -1;
+	for (int i = 0; i < MAX_TABLES; i++) {
+		if (t->name == s.tables[i].name)
+			index = i;
+	}
+	assert(index != -1);
+	struct block_info* bi = disk_to_memory(leaf_node[index]);
+	int internal_node_size = get_pk_internal_node_size(t);
 	for (int i = 0; i < bi->areas; i++) {
 		if (bi->bitmap[i] != 0xff) {
 			for (int j = 0; i < 8; j++) {
@@ -148,6 +178,8 @@ uint32_t get_internal_node(struct table*t)
 
 void* disk_to_memory(uint32_t disk_pos)
 {
+	if (disk_pos == -1)
+		return NULL;
 	uint32_t offset = 0xffff & disk_pos;
 	disk_pos -= offset;
 	int left = 0;
@@ -168,6 +200,8 @@ void* disk_to_memory(uint32_t disk_pos)
 }
 uint32_t memory_to_disk(void* memory_pos)
 {
+	if (memory_pos == NULL)
+		return -1;
 	if (memory_pos >= memory_pool && memory_pos < (byte*)memory_pool + PAGE_NUMBER * PAGE_SIZE) {
 		uint32_t offset = 0xffff & (uint32_t)memory_pos;
 		if(memory_to_disk_table[(word)memory_pos >> 16].disk != -1)

@@ -11,9 +11,10 @@ struct schema
 	time_t timestamp;
 };
 struct schema s;
-int a[sizeof(struct schema)/1024/64];
+void load_schema(const char*);
+
 /*creat a new schema on given name*/
 struct schema create_schema(char* name);
 /*add a new table to a schema*/
-void add_table(struct schema* s, struct table t);
+void create_table(struct schema* s, struct table t);
 #endif

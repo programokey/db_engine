@@ -5,10 +5,15 @@
 
 
 void* memory_pool;
-void* memroy_allocate(int size);
-void  release_memory(void* buffer);
+
 void* get_page();
 void* get_memory_pool();
 void release_memory_pool();
+
 void memory_copy(byte* dest, byte* source, int length);
+
+/*  0 if buffer1 == buffer2
+  > 0 if buffer1 > buffer2
+  < 0 if buffer1 < buffer2*/
+int memory_compare(byte* buffer1, byte* buffer2, int length);
 #endif // !STROAGE_MEMORY_H
